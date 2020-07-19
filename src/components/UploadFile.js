@@ -3,9 +3,13 @@ import inputValidation from "../operations/InputValidation";
 import getObject from "../operations/GetObject";
 function UploadFile() {
   const [state, setState] = useState([]);
+  const [fileValue, setValue] = useState([]);
+  const [type, setType] = useState([]);
 
   const handleChange = (event) => {
     event.preventDefault();
+    const fileType = event.target.files[0];
+    setType(fileType);
     const reader = new FileReader();
     let data = {};
     let fResult = [];
@@ -15,6 +19,8 @@ function UploadFile() {
         .replace(/\r/g, "")
         .split("\n")
         .filter((line) => line !== "");
+      const filedata = fileLines;
+      setValue(filedata);
       if (inputValidation(fileLines)) {
         data = getObject(fileLines);
         fResult = pairOfEmployees(data);
@@ -91,7 +97,7 @@ function UploadFile() {
       duration = daysForPerson(e.line);
       empId = e.line.EmpID;
       durationObject = { empID: empId, duration: duration };
-      if (resultArray[prID] == undefined) {
+      if (resultArray[prID] === undefined) {
         resultArray[prID] = { dayArray: [durationObject] };
       } else {
         resultArray[prID].dayArray.push(durationObject);
@@ -131,11 +137,35 @@ function UploadFile() {
                   Choose text file with correct format!
                 </p>
               )}
+              {state.length > 0 && (
+                <h2 className="text-secondary">File data</h2>
+              )}
+
+              {state.length !== 0 && type.type === "text/plain" && (
+                <table className="table table-bordered table-striped">
+                  <thead className="thead-dark">
+                    <th>EmpID</th>
+                    <th>ProjectID</th>
+                    <th>Date from</th>
+                    <th>Date to</th>
+                  </thead>
+                  <tbody>
+                    {fileValue.map((line) => (
+                      <tr>
+                        {line.split(", ").map((word) => (
+                          <td>{word}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
               {state.length === 4 && (
                 <h2 className="text-secondary">datagrid</h2>
               )}
+
               {state.length === 4 && (
-                <table className="table table-bordered">
+                <table className="table table-bordered table-striped">
                   <thead className="thead-dark">
                     <th>EmpID#1</th>
                     <th>EmpID#2</th>

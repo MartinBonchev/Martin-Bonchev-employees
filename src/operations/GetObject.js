@@ -5,7 +5,7 @@ function getObject(fileLines) {
   let id = 0;
   let arrayData = [];
   fileLines.forEach((line) => {
-    let lineElements = line.split(", ");
+    let lineElements = line.split(",");
     singleData["EmpID"] = lineElements[0];
     singleData["ProjectID"] = lineElements[1];
     singleData["DateFrom"] = lineElements[2];
