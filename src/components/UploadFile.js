@@ -107,6 +107,12 @@ function UploadFile() {
         <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
           <form method="post" action="#" id="#">
             <div className="justify-content-center">
+              <p className="display-8 py-2 text-secondary">
+                The purpose of the task is to visualise the 2 employees that
+                worked the longest on common project. The input has to accept
+                only text files. The text file must be in: 'ImpId, ProjectID,
+                DateFrom, DateTo' format. DateTo can be NULL (as a string).
+              </p>
               <label className="display-4 py-2 text-secondary">
                 Upload Your File
               </label>
